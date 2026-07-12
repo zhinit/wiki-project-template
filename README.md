@@ -1,6 +1,6 @@
 # wiki-project-template
 
-A starter template for research projects built around an LLM-maintained wiki,
+A starter template for projects built around an LLM-maintained wiki,
 following Andrej Karpathy's LLM Wiki pattern:
 archive primary sources immutably, have the agent distill them into an
 interlinked wiki of concept pages, and keep your own conclusions and results
