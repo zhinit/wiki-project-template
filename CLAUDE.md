@@ -14,7 +14,9 @@ and writing:
 - **`wiki/`** — research from primary sources (`raw/`) only. The wiki presents
   information neutrally: no project opinions, no conclusions, no "for this
   project" verdicts, and never our own results. Every claim traces to a
-  source in `raw/`. Maintained per Andrej Karpathy's LLM Wiki pattern;
+  source in `raw/`. Each page covers a topic or concept — pages are never
+  summaries of individual sources. A source contributes citations to
+  whichever topic pages it's relevant to. Maintained per Andrej Karpathy's LLM Wiki pattern;
   `wiki/index.md` is the table of contents, `wiki/log.md` the append-only
   operation log. This wiki is built from scratch — do not pull content from
   other projects.

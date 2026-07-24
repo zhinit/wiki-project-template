@@ -46,11 +46,12 @@ them. If a source can't be fetched (paywall, 429, etc.), note it and move on.
 
 1. Read the full source document(s).
 2. Discuss key takeaways with the user before writing anything.
-3. Create a summary page in `wiki/` named after the source.
-4. Create or update concept pages for each major idea or entity.
-5. Add wiki-links (`[[page-name]]`) to connect related pages.
-6. Update `wiki/index.md` with new pages and one-line descriptions.
-7. Append an entry to `wiki/log.md` with the date, source name, and what changed.
+3. Create or update **topic pages** — each page covers a concept, technique,
+   entity, or idea, not an individual source. A source contributes cited facts
+   to whichever topic pages it's relevant to; it never gets its own summary page.
+4. Add wiki-links (`[[page-name]]`) to connect related pages.
+5. Update `wiki/index.md` with new pages and one-line descriptions.
+6. Append an entry to `wiki/log.md` with the date, source name, and what changed.
 
 A single source may touch 10–15 wiki pages. That is normal.
 
