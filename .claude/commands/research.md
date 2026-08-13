@@ -55,7 +55,18 @@ them. If a source can't be fetched (paywall, 429, etc.), note it and move on.
 
 A single source may touch 10–15 wiki pages. That is normal.
 
-Follow the **page format** and **citation rules** in CLAUDE.md: every factual
-claim cites its source file `(source: filename.md)`, and contradictions between
-sources are noted explicitly. Never fabricate facts, figures, APIs, or claims
-about the domain — if it's not in a source, it's not known.
+Follow this **page format**:
+
+- H1 title on line 1; content organized into `##` sections of prose.
+- Every factual claim or section carries an inline citation
+  `(source: <file>.md)` naming a file that exists in `raw/md/`. Citations
+  point to raw sources only, never to other wiki pages.
+- Wiki links are `[[page-name]]`, or `[[page-name|display text]]` for custom
+  display text. The target page must exist.
+- A closing **Related pages** section is optional.
+- `wiki/index.md` lists every page with a one-line description;
+  `wiki/log.md` is append-only.
+
+Contradictions between sources are noted explicitly. Never fabricate facts,
+figures, APIs, or claims about the domain — if it's not in a source, it's
+not known.

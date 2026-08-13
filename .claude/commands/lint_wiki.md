@@ -19,9 +19,18 @@ Start from `wiki/index.md`, then walk the pages and check:
    malformed links.
 5. **Stale claims** — claims that may be outdated given newer sources in
    `raw/md/` or newer entries in `wiki/log.md`.
-6. **Format violations** — pages that don't follow the page format in CLAUDE.md
-   (missing H1 title, citations pointing to wiki pages instead of `raw/md/`
-   files, or citations naming files that don't exist in `raw/md/`).
+6. **Format violations** — pages that don't follow this page format:
+   - H1 title on line 1; content organized into `##` sections of prose.
+   - Every factual claim or section carries an inline citation
+     `(source: <file>.md)` naming a file that exists in `raw/md/`. Citations
+     point to raw sources only, never to other wiki pages.
+   - Wiki links are `[[page-name]]`, or `[[page-name|display text]]` for
+     custom display text. The target page must exist.
+   - A closing **Related pages** section is optional.
+   - `wiki/index.md` lists every page with a one-line description;
+     `wiki/log.md` is append-only.
+   Check for: missing H1 title, citations pointing to wiki pages instead of
+   `raw/md/` files, or citations naming files that don't exist in `raw/md/`.
 7. **Uncited claims** — factual claims with no `(source: ...)` reference.
 8. **Separation-of-concerns violations** — project conclusions, recommendations,
    or our own results in wiki pages. Red flags: "for this project",
