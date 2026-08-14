@@ -39,6 +39,28 @@ Always look things up before answering. Follow this order:
 
 ---
 
+# Original work
+
+Every claim has one of three statuses:
+
+- **Established** — in the wiki, cited to a source. The only status factual
+  answers may rely on.
+- **Verified** — our own result, actually checked: code run, experiment
+  executed, proof checked. Lives in the project dirs, written up in `docs/`.
+  A writeup states the assumptions the verification relied on; if a key
+  assumption can't be checked, the result stays conjecture.
+- **Conjecture** — everything else, including ideas from the model's general
+  knowledge. Brainstorming is welcome, but conjectures are always labeled
+  as such.
+
+A conjecture is promoted by verifying it or by sourcing it (`/research`).
+Conjecture never enters the wiki and is never presented as fact.
+
+In `docs/` writeups, distinguish which inputs are established (cite the wiki
+page) and which are assumptions.
+
+---
+
 # Memory
 
 - Never use the file-based memory system. Do not read, write, or cite memories.

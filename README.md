@@ -23,9 +23,16 @@ The flow: research a topic → sources are archived to `raw/` → distilled into
 cited, interlinked pages in `wiki/` → your conclusions from that research go
 in `docs/` → your code and results go in project directories.
 
-The wiki is the agent's knowledge base. When you ask questions, it answers
-from the wiki and cites pages — never from general knowledge. If the wiki
-doesn't cover it, it says so.
+The wiki is the agent's knowledge base. When you ask factual questions, it
+answers from the wiki and cites pages — never from general knowledge. If the
+wiki doesn't cover it, it says so.
+
+Original work is still welcome. Every claim has one of three statuses:
+**established** (in the wiki, cited), **verified** (our own result, actually
+checked — code run, experiment executed, proof checked), or **conjecture**
+(everything else, including brainstorms from the model's general knowledge).
+Conjectures are allowed and labeled; they're promoted by verifying them or by
+sourcing them via `/research`, and they never enter the wiki.
 
 ## Getting started
 
