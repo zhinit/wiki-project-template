@@ -33,9 +33,7 @@ doesn't cover it, it says so.
 2. Edit `CLAUDE.md`: fill in the project name, the one-paragraph description,
    and replace `<project-dirs>` with the directories your project needs
    (e.g. `src/`, `analysis/`, `db/`).
-3. Create the starting structure: `wiki/` (with an empty `index.md` and
-   `log.md`), `raw/html/`, `raw/md/`, and `docs/`.
-4. Start Claude Code and run `/research <your first topic>`.
+3. Start Claude Code and run `/research <your first topic>`.
 
 ## Commands
 
@@ -46,6 +44,9 @@ doesn't cover it, it says so.
 - **`/lint_wiki`** — audits the wiki for contradictions, orphan pages, broken
   links, uncited claims, stale claims, format violations, and
   separation-of-concerns violations. Reports first; fixes only on approval.
+- **`/retract_source <file>`** — removes a bad source from `raw/` and cleans
+  up every wiki claim that cites it. Reports the blast radius first; deletes
+  only on approval. The only sanctioned way to delete from `raw/`.
 
 ## Wiki conventions
 
@@ -61,15 +62,23 @@ doesn't cover it, it says so.
 ```
 CLAUDE.md                      -- project rules: separation of concerns,
                                   page format, question-answering order, tone
+wiki/                          -- index.md and log.md, empty to start
+raw/                           -- html/ and md/, empty to start
+docs/                          -- empty to start
 .claude/
   commands/research.md         -- /research command
   commands/lint_wiki.md        -- /lint_wiki command
-  settings.json                -- hook that re-injects the core rules on
-                                  every prompt
+  commands/retract_source.md   -- /retract_source command
+  settings.json                -- hooks (rule re-injection, raw/ protection)
   style-reminder.md            -- the condensed rules the hook injects
+  hooks/protect-raw.sh         -- blocks edits to existing files in raw/
 ```
 
-The `UserPromptSubmit` hook in `.claude/settings.json` prints
-`style-reminder.md` into every prompt, so the core rules (write to one place,
-cite everything, never answer from general knowledge) survive long sessions
-where the agent might otherwise drift.
+Two hooks in `.claude/settings.json` enforce the rules mechanically:
+
+- `UserPromptSubmit` prints `style-reminder.md` into every prompt, so the
+  core rules (write to one place, cite everything, never answer from general
+  knowledge) survive long sessions where the agent might otherwise drift.
+- `PreToolUse` blocks Edit/Write on existing files under `raw/`, making
+  immutability enforced rather than advisory. Creating new source files
+  still works; removing one goes through `/retract_source`.

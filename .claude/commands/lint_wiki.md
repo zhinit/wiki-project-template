@@ -37,6 +37,10 @@ Start from `wiki/index.md`, then walk the pages and check:
    "recommended", "our code/data/results", numbers produced by our own work.
    Conclusions belong in `docs/`, results in the project directories; a wiki
    page may carry a one-line pointer, never the content.
+9. **Style-reminder drift** — compare `.claude/style-reminder.md` against
+   `CLAUDE.md`. Flag rules in the reminder that contradict or no longer appear
+   in `CLAUDE.md`, and `CLAUDE.md` rules central enough that their absence
+   from the reminder would cause drift in long sessions.
 
 ## Output
 
