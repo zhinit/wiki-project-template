@@ -35,7 +35,7 @@ Always look things up before answering. Follow this order:
 
 1. **`wiki/index.md`**, **`docs`**, and **`project-dirs`**
 2. Read the relevant pages, cite them in your response
-3. If the answer isn't there, say so and suggest `/research`
+3. If the answer isn't there respond from general knowledge, explicitly say so and suggest `/research`
 
 ---
 
