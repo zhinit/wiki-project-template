@@ -6,7 +6,9 @@ archive primary sources immutably, have the agent distill them into an
 interlinked wiki of concept pages, and keep your own conclusions and results
 strictly separate from the research.
 
-Designed for use with [Claude Code](https://claude.com/claude-code).
+Shared instructions and workflows work with agents that read `AGENTS.md`.
+[Claude Code](https://claude.com/claude-code) command and hook adapters and
+Codex skill wrappers are included.
 
 ## How it works
 
@@ -24,22 +26,26 @@ cited, interlinked pages in `wiki/` → your conclusions from that research go
 in `docs/` → your code and results go in project directories.
 
 The wiki is the agent's knowledge base. When you ask questions, it answers
-from the wiki and cites pages — never from general knowledge. If the wiki
-doesn't cover it, it says so.
+from the wiki and cites pages. If the project files do not cover it, it
+explicitly labels an answer from general knowledge and suggests `/research`.
 
 ## Getting started
 
 1. Clone or copy this template into a new project directory.
-2. Edit `CLAUDE.md`: fill in the project name, the one-paragraph description,
+2. Edit `AGENTS.md`: fill in the project name, the one-paragraph description,
    and replace `<project-dirs>` with the directories your project needs
    (e.g. `src/`, `analysis/`, `db/`).
-3. Start Claude Code and run `/research <your first topic>`.
+3. Start your agent and request `research <your first topic>`. In Claude Code,
+   run `/research <your first topic>`. In Codex, use `$research <your first topic>`.
 
 ## Commands
 
+Claude uses the slash commands below. Codex uses `$research <topic>`,
+`$lint-wiki`, and `$retract-source <file>` for the same workflows.
+
 - **`/research <topic>`** — searches the web and arXiv for primary sources,
   presents candidates for approval, archives them to `raw/`, and ingests them
-  into the wiki as summary and concept pages. A single source may touch 10–15
+  into the wiki as topic pages. A single source may touch 10–15
   pages.
 - **`/lint_wiki`** — audits the wiki for contradictions, orphan pages, broken
   links, uncited claims, stale claims, format violations, and
@@ -60,25 +66,43 @@ doesn't cover it, it says so.
 ## What's in the template
 
 ```
-CLAUDE.md                      -- project rules: separation of concerns,
-                                  page format, question-answering order, tone
+AGENTS.md                       -- canonical project instructions and workflow map
+CLAUDE.md -> AGENTS.md          -- Claude instruction entry point
 wiki/                          -- index.md and log.md, empty to start
 raw/                           -- html/ and md/, empty to start
 docs/                          -- empty to start
+.agents/
+  skills/research/SKILL.md     -- Codex $research wrapper
+  skills/lint-wiki/SKILL.md    -- Codex $lint-wiki wrapper
+  skills/retract-source/SKILL.md -- Codex $retract-source wrapper
+  workflows/research.md        -- shared research workflow
+  workflows/lint_wiki.md       -- shared wiki audit workflow
+  workflows/retract_source.md  -- shared source retraction workflow
+  style-reminder.md            -- condensed project rules
+  hooks/protect-raw.sh          -- shared protection logic
 .claude/
-  commands/research.md         -- /research command
-  commands/lint_wiki.md        -- /lint_wiki command
-  commands/retract_source.md   -- /retract_source command
-  settings.json                -- hooks (rule re-injection, raw/ protection)
-  style-reminder.md            -- the condensed rules the hook injects
-  hooks/protect-raw.sh         -- blocks edits to existing files in raw/
+  commands/*.md                -- symlinks to shared workflows
+  settings.json                -- Claude hook registration
+  hooks/protect-raw.sh          -- Claude input adapter
 ```
 
-Two hooks in `.claude/settings.json` enforce the rules mechanically:
+`AGENTS.md` maps workflow names to their shared files. Agents can follow those
+files without native slash-command support. Claude's command files are relative
+symlinks to the same definitions, so workflow edits happen in one place.
+Codex discovers the `SKILL.md` wrappers in `.agents/skills/`; each wrapper
+points to its shared workflow. If the new skills do not appear in the `$`
+picker, restart Codex.
 
-- `UserPromptSubmit` prints `style-reminder.md` into every prompt, so the
-  core rules (write to one place, cite everything, never answer from general
-  knowledge) survive long sessions where the agent might otherwise drift.
-- `PreToolUse` blocks Edit/Write on existing files under `raw/`, making
-  immutability enforced rather than advisory. Creating new source files
-  still works; removing one goes through `/retract_source`.
+Two hooks in `.claude/settings.json` connect Claude to the shared files:
+
+- `UserPromptSubmit` prints `.agents/style-reminder.md` into every prompt.
+- `PreToolUse` passes Edit/Write targets through the Claude adapter to
+  `.agents/hooks/protect-raw.sh`, blocking writes to existing files under
+  `raw/` while allowing new files.
+
+The shared protection script accepts `<repository-root> <target-file>` and
+returns exit code 2 when blocked, or 0 when allowed. Relative target paths are
+resolved against the repository root. It requires Bash and Python 3.9 or newer.
+Other agents need their own hook registration and input adapter to call it.
+The included hook covers Claude's Edit/Write tools. Shell writes and deletion
+are outside its coverage. Source retraction requires the workflow's approval.

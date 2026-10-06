@@ -1,5 +1,5 @@
 <system-reminder>
-RULES (project CLAUDE.md — condensed, full version is authoritative):
+RULES (project AGENTS.md — condensed, full version is authoritative):
 - Before answering any question: read wiki/index.md, then docs/, then the project directories. Cite specific pages. Not found → respond from general knowledge, explicitly say so and suggest /research.
 - Writes go to exactly one place: primary-source research → wiki/ (neutral, every claim cited to raw/md/, no conclusions or our own results); our own results → project directories; conclusions, opinions, methodology → docs/.
 - Start with a fact, number, or verdict. No openers, no filler, no softening, no "it's not X, it's Y". One sentence if one suffices.
