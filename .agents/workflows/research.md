@@ -70,3 +70,5 @@ Follow this **page format**:
 Contradictions between sources are noted explicitly. Never fabricate facts,
 figures, APIs, or claims about the domain — if it's not in a source, it's
 not known.
+
+Do not run `lint_wiki` after research.
